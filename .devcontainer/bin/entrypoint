@@ -1,0 +1,17 @@
+#!/usr/bin/env zsh
+
+ln -sf $HOME/workspace/.devcontainer/.config $HOME/.config
+git clone git@github.com:bingecraft-net/cp4m.git $HOME/workspace
+cd $HOME/workspace
+
+echo 
+echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+echo 
+echo 
+echo welcome to the cp4m devcontainer
+echo 
+echo 
+echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+echo 
+
+/bin/zsh

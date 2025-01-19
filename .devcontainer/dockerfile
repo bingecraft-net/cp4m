@@ -1,0 +1,26 @@
+FROM ubuntu:latest
+
+RUN apt-get update && \
+    apt-get upgrade -y && \
+    apt-get install -y build-essential curl git less zsh && \
+    apt-get clean
+
+RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+RUN usermod -s /bin/zsh root
+RUN sed -i 's/robbyrussell/aussiegeek/' /root/.zshrc
+
+RUN curl -sLO https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz && \
+    tar -C /opt -xzf nvim-linux64.tar.gz && \
+    rm nvim-linux64.tar.gz && \
+    ln -s /opt/nvim-linux64/bin/nvim /usr/local/bin && \
+    echo EDITOR=nvim >> /root/.zshrc
+
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y && \
+    echo 'PATH=$HOME/.cargo/bin:$PATH' >> /root/.zshrc
+
+COPY .devcontainer/bin/ /bin/
+
+COPY .devcontainer/.config/ /root/.config/
+RUN nvim --headless "+Lazy! sync" +qa
+
+CMD /bin/entrypoint
