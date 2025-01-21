@@ -17,6 +17,7 @@ RUN curl -sLO https://github.com/neovim/neovim/releases/latest/download/nvim-lin
 
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y && \
     echo 'PATH=$HOME/.cargo/bin:$PATH' >> /root/.zshrc
+RUN $HOME/.cargo/bin/rustup component add rust-analyzer
 
 COPY .devcontainer/bin/ /bin/
 
